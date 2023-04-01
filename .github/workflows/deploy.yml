@@ -32,8 +32,6 @@ jobs:
     # - name: Test
     #   run: dotnet test --no-build --verbosity normal
 
-name: AWS example workflow
-
 jobs:
   S3PackageUpload:
     runs-on: ubuntu-latest
