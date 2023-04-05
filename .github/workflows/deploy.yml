@@ -41,11 +41,12 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ env.ROLE }}
-          role-session-name: github-action-role
+          role-session-name: samplerolesession
           aws-region: ${{ env.AWS_REGION }}
       # Upload a file to AWS s3
       - name: Copy TestCodedeploy to s3
-        run: aws s3 cp ./src/TestCodedeploy s3://${{ env.BUCKET_NAME }}/
+        run: |
+          aws s3 cp ./src/TestCodedeploy s3://${{ env.BUCKET_NAME }}/
   
   # deploy:
   #   needs: S3PackageUpload
