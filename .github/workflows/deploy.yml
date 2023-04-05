@@ -8,7 +8,7 @@ on:
     branches: [ "master","develop" ]
 
 env:
-  BUCKET_NAME : "codedeploy-solution-bucket"
+  BUCKET_NAME : "codedeploy-solution-busket"
   AWS_REGION : "us-east-1"
   ROLE : "arn:aws:iam::749559872087:role/github-action-role"
 permissions:
