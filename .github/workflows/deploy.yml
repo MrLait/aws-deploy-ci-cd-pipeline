@@ -33,6 +33,7 @@ jobs:
     #   run: dotnet test --no-build --verbosity normal
     
   S3PackageUpload:
+  needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
