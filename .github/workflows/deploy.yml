@@ -46,7 +46,7 @@ jobs:
       # Upload a file to AWS s3
       - name: Copy TestCodedeploy to s3
         run: |
-          aws s3 cp ./index.html s3://${{ env.BUCKET_NAME }}/
+          aws s3 cp . s3://${{ env.BUCKET_NAME }}/target --recursive --exclude ".git/*"
   
   # deploy:
   #   needs: S3PackageUpload
