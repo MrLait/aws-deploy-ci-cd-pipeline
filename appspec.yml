@@ -1,24 +1,16 @@
 version: 0.0
 os: linux
 files:
-  - source: /src/
+  - source: /
     destination: /home/ubuntu/src
 permissions:
-  - object: /home/ubuntu
-    owner: ubuntu
-    group: ubuntu
-    type:
-      - directory
-      - file
-# hooks:
-#   BeforeInstall:
-#     - location: scripts/install_dependencies
-#       timeout: 300
-#       runas: root
-#     - location: scripts/start_server
-#       timeout: 300
-#       runas: root
-#   ApplicationStop:
-#     - location: scripts/stop_server
-#       timeout: 300
-#       runas: root
+  - object: /var/www/html
+    pattern: "**"
+    owner: apache
+    group: apache
+hooks:
+  AfterInstall:
+    - location: scripts/start_container.sh
+      timeout: 180
+      runas: codedeployuser
+      ignoreErrors: false
