@@ -38,5 +38,5 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ env.ROLE }}
-          role-session-name: samplerolesession
+          role-session-name: dockerImageUploadSession
           aws-region: ${{ env.AWS_REGION }}
