@@ -4,8 +4,11 @@ files:
   - source: /
     destination: /home/ubuntu/src
 hooks:
-  AfterInstall:
-    - location: scripts/start_container.sh
+  BeforeInstall:
+    - location: aws/scripts/before-install.sh
       timeout: 180
       runas: root
-      ignoreErrors: false
+  AfterInstall:
+    - location: scripts/start-container.sh
+      timeout: 180
+      runas: root
