@@ -5,12 +5,12 @@ name: .NET
 
 on:
   push:
-    branches: [ "master","develop" ]
+    branches: ["master", "develop"]
 
 env:
-  BUCKET_NAME : "codedeploy-solution-busket"
-  AWS_REGION : "us-east-1"
-  ROLE : "arn:aws:iam::749559872087:role/github-action-role"
+  BUCKET_NAME: "codedeploy-solution-busket"
+  AWS_REGION: "us-east-1"
+  ROLE: "arn:aws:iam::749559872087:role/github-action-role"
 
 jobs:
   build:
@@ -28,13 +28,12 @@ jobs:
       # - name: Test
       #   run: dotnet test --no-build --verbosity normal
 
- asda   asdadsad
   S3PackageUpload:
     needs: [build]
     runs-on: ubuntu-latest
     permissions:
-      id-token: write   # This is required for requesting the JWT
-      contents: read    # This is required for actions/checkout
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
@@ -55,21 +54,13 @@ jobs:
       #- name: Copy TestCodedeploy to s3
       #  run: |
       #    aws s3 cp . s3://${{ env.BUCKET_NAME }}/target --recursive --exclude ".git/*"
-  
-
-
-
-
-
-
-
 
   # deploy:
   #   needs: S3PackageUpload
   #   runs-on: ubuntu-latest
   #   permissions:
   #     id-token: write
-  #     contents: read 
+  #     contents: read
   #   steps:
   #   - uses: actions/checkout@v2
   #   - uses: aws-actions/configure-aws-credentials@v1
