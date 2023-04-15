@@ -3,14 +3,9 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/src
-permissions:
-  - object: /var/www/html
-    pattern: "**"
-    owner: apache
-    group: apache
 hooks:
   AfterInstall:
     - location: scripts/start_container.sh
       timeout: 180
-      runas: codedeployuser
+      runas: root
       ignoreErrors: false
