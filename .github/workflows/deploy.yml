@@ -54,8 +54,9 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker save $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | gzip -c > my-app-docker.tar.gz
+          zip -r my-app.zip .
           ls
-          aws s3 cp . s3://${{ env.BUCKET_NAME }}/target/my-app.zip
+          aws s3 cp my-app.zip s3://${{ env.BUCKET_NAME }}/target/my-app.zip
 
       # aws deploy push \
       # --application-name my-app \
