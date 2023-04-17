@@ -26,7 +26,7 @@ jobs:
       #   run: dotnet test --no-build --verbosity normal
 
   dockerImageBuildAndUploadToS3:
-    needs: [build]
+    # needs: [build]
     runs-on: ubuntu-latest
     permissions:
       id-token: write # This is required for requesting the JWT
@@ -53,12 +53,12 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-          docker save lewuathe/my-app | gzip -c > my-app-docker.tar.gz
+          docker save codedeploy_solution/my-app | gzip -c > my-app-docker.tar.gz
 
           aws deploy push \
           --region us-east-1 \
           --output json \
           --application-name my-app \
-          --description "My application running in docker contaienr in AWS CodeDeploy" \
+          --description "My application running in docker container in AWS CodeDeploy" \
           --s3-location "$(BUCKET_NAME)/my-app.zip" \
           --source "."
