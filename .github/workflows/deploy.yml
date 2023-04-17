@@ -60,5 +60,5 @@ jobs:
           --output json \
           --application-name my-app \
           --description "My application running in docker container in AWS CodeDeploy" \
-          --s3-location "$(BUCKET_NAME)/my-app.zip" \
+          --s3-location "s3://${{ env.BUCKET_NAME }}/my-app.zip" \
           --source "."
