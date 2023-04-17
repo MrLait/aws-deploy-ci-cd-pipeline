@@ -25,7 +25,7 @@ jobs:
       # - name: Test
       #   run: dotnet test --no-build --verbosity normal
 
-  dockerImageUpload:
+  dockerImageBuildAndUploadToS3:
     needs: [build]
     runs-on: ubuntu-latest
     permissions:
@@ -45,11 +45,20 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Build
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: codedeploy_solution
           IMAGE_TAG: my-app
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+          docker save lewuathe/my-app | gzip -c > my-app-docker.tar.gz
+
+          aws deploy push \
+          --region us-east-1 \
+          --output json \
+          --application-name my-app \
+          --description "My application running in docker contaienr in AWS CodeDeploy" \
+          --s3-location "$(BUCKET_NAME)/my-app.zip" \
+          --source "."
