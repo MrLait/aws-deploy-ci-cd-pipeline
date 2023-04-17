@@ -55,7 +55,11 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker save $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | gzip -c > my-app-docker.tar.gz
           ls
-
+          aws deploy push \
+          --application-name my-app \
+          --description "My application running in docker container in AWS CodeDeploy" \
+          --s3-location "s3://codedeploy-solution-busket/my-app.zip" \
+          --source "."
       # - name: Login to Amazon ECR
       #   id: login-ecr
       #   uses: aws-actions/amazon-ecr-login@v1
