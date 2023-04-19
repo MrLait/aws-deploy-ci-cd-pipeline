@@ -18,8 +18,6 @@ WORKDIR /app
 
 # Копирование собранного приложения из предыдущего этапа
 COPY --from=build /app/out .
-COPY scripts ./scripts
-COPY appspec.yml .
 
 # Запуск приложения
 ENTRYPOINT ["dotnet", "HttpCodeDeploy.dll"]
