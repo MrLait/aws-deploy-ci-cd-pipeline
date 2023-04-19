@@ -1,0 +1,12 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sts:AssumeRoleWithSAML",
+            "Principal": {
+                "Federated": "arn:aws:iam::749559872087:saml-provider/AWSSSO_64567427a68bcdea_DO_NOT_DELETE"
+            },
+        }
+    ]
+}
