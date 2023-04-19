@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # pune all images
-docker container prune
+sudo docker container prune
