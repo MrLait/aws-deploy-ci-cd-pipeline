@@ -7,6 +7,6 @@ hooks:
   BeforeInstall:
     - location: aws/scripts/before-install.sh
       timeout: 180
-  AfterInstall:
-    - location: scripts/start-container.sh
-      timeout: 180
+  # AfterInstall:
+  #   - location: scripts/start-container.sh
+  #     timeout: 180
