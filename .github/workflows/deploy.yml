@@ -5,7 +5,7 @@ on:
     branches: ["master", "develop"]
 
 env:
-  BUCKET_NAME: "codedeploy-solution-busket"
+  BUCKET_NAME: "codedeploy-solution-bucket"
   AWS_REGION: "us-east-1"
   ROLE: "arn:aws:iam::749559872087:role/github-action-role"
 
@@ -26,7 +26,7 @@ jobs:
       #   run: dotnet test --no-build --verbosity normal
 
   dockerImageBuildAndUploadToS3:
-    # needs: [build]
+    needs: [build]
     runs-on: ubuntu-latest
     permissions:
       id-token: write # This is required for requesting the JWT
@@ -51,31 +51,3 @@ jobs:
           docker save $IMAGE_TAG | gzip -c > my-app-docker.tar.gz
           zip -r my-app.zip .
           aws s3 cp my-app.zip s3://${{ env.BUCKET_NAME }}/target/my-app.zip
-      # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-      # aws deploy push \
-      # --application-name my-app \
-      # --description "My application running in docker container in AWS CodeDeploy" \
-      # --s3-location "s3://codedeploy-solution-busket/my-app.zip" \
-      # --source "."
-
-      # - name: Login to Amazon ECR
-      #   id: login-ecr
-      #   uses: aws-actions/amazon-ecr-login@v1
-
-      # - name: Build
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     ECR_REPOSITORY: codedeploy_solution
-      #     IMAGE_TAG: my-app
-      #   run: |
-      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-      #     docker save codedeploy_solution/my-app | gzip -c > my-app-docker.tar.gz
-      #     ls -l my-app-docker.tar.gz
-      #     aws deploy push \
-      #     --application-name my-app \
-      #     --description "My application running in docker container in AWS CodeDeploy" \
-      #     --s3-location "s3://codedeploy-solution-busket/my-app.zip" \
-      #     --source "."
-      #         - name: Upload to S3
-      # run: aws s3 cp project.zip s3://${{ env.BUCKET_NAME }}/target/project.zip
